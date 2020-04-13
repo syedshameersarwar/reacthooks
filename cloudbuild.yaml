@@ -1,0 +1,12 @@
+steps:
+- name: 'gcr.io/$PROJECT_ID/python3.7-alpine'
+  entrypoint: 'python'
+  args: ['-m', 'compileall', '-b', 'dashboard_apni_prep.py', 'total_cost.py']
+
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', '__main__.py', 'gs://seeloz-jars/dashboard_apni_prep/']
+
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', '*.pyc', 'gs://seeloz-jars/dashboard_apni_prep/']
+
+timeout: 1200s
